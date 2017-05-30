@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 
-
+import matplotlib.pyplot as plt
 
 def subplot_value_counts(data, variable, width = 0.8):
     """ Plot value counts for one categorical variable.
@@ -21,7 +21,6 @@ def subplot_value_counts(data, variable, width = 0.8):
 
     barplot: single bar plot
     """
-
 
     # Value counts (limit to 30 categories)
     counts = data[variable].value_counts()[:30]
@@ -70,18 +69,25 @@ def plot_value_counts(data, variables):
     # Number of categorical variables specified
     n_variables = len(variables)
 
-    plt.figure(figsize = (14,20))
+    if n_variables == 1:
+    	subplot_value_counts(data, variables[0])
+    else:
+	    # Adjust the figure height to the number of variables to plot
+	    plt.figure(figsize = (14, 6 * (n_variables//2)))
 
-    # Two subplots per row
-    numrows = round(n_variables / 2)
-    
-    for i in range(n_variables):
-    	# Two subplots per row
-        plt.subplot(numrows, 2, i+1)
-        subplot_value_counts(data, variables[i])
+	    # Two subplots per row
+	    if n_variables % 2 == 0:
+	    	nrows = n_variables / 2
+	    else:
+	    	nrows = (n_variables+1) / 2
 
-    # Adjust the spacing between subplots
-    plt.subplots_adjust(wspace = None, hspace = 1)
+	    for i in range(n_variables):
+	    	# Two subplots per row
+	        plt.subplot(nrows, 2, i+1)
+	        subplot_value_counts(data, variables[i])
 
-    # Show the figure containing the subplots
-    plt.show()
+	    # Adjust the spacing between subplots
+	    plt.subplots_adjust(hspace = 1)
+
+	    # Show the figure containing the subplots
+	    plt.show()
