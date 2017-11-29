@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 
+__author__ = "Nasser Benabderrazik"
+
 import matplotlib.pyplot as plt
 
-def subplot_value_counts(data, variable, width = 0.8):
+def subplot_value_counts(data, variable, width=0.8):
     """ Plot value counts for one categorical variable.
 
     Parameters
@@ -32,8 +34,8 @@ def subplot_value_counts(data, variable, width = 0.8):
     categories = list(counts.index)
 
     # Plot the bars 
-    barplot = plt.bar(height = counts, left = range(n_categories), 
-    	              color = "green", width = 0.8)
+    barplot = plt.bar(height=counts, left=range(n_categories), 
+    	              color="green", width=0.8)
 
     # Change the color of the Missing Values bar 
     if "Missing values" in categories:
@@ -41,10 +43,10 @@ def subplot_value_counts(data, variable, width = 0.8):
 
     # Add the categories as the x labels 
     ticks = [sum(x) for x in zip(range(n_categories), [width/2] * n_categories)]
-    plt.xticks(ticks, categories, rotation = 80)
+    plt.xticks(ticks, categories, rotation=80)
 
     # Add a title and adjust the distance to the figure
-    plt.title("'{}' category counts".format(variable), fontsize = 14, y = 1.02)
+    plt.title("'{}' category counts".format(variable), fontsize=14, y=1.02)
 
     return barplot
 
@@ -73,7 +75,7 @@ def plot_value_counts(data, variables):
     	subplot_value_counts(data, variables[0])
     else:
 	    # Adjust the figure height to the number of variables to plot
-	    plt.figure(figsize = (14, 6 * (n_variables//2)))
+	    plt.figure(figsize=(14, 6 * (n_variables//2)))
 
 	    # Two subplots per row
 	    if n_variables % 2 == 0:
@@ -87,7 +89,7 @@ def plot_value_counts(data, variables):
 	        subplot_value_counts(data, variables[i])
 
 	    # Adjust the spacing between subplots
-	    plt.subplots_adjust(hspace = 1)
+	    plt.subplots_adjust(hspace=1)
 
 	    # Show the figure containing the subplots
 	    plt.show()
